@@ -12,7 +12,7 @@
 
 </div>
 
-![CLIProxy Dashboard Preview](docs/CliProxyAPI-Dashboard.jpg)
+![CLIProxy Dashboard Preview](docs/Homepage.jpg)
 
 ---
 

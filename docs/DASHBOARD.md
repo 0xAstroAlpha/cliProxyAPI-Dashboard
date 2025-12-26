@@ -12,7 +12,7 @@
 
 ---
 
-![CLIProxy Dashboard Overview](CliProxyAPI-Dashboard.jpg)
+![CLIProxy Dashboard Overview](Homepage.jpg)
 
 ## Truy Cập Dashboard
 
