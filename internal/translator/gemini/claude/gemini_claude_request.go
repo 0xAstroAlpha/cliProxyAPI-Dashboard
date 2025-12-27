@@ -15,7 +15,7 @@ import (
 	"github.com/tidwall/sjson"
 )
 
-const geminiClaudeThoughtSignature = "skip_thought_signature_validator"
+
 
 // ConvertClaudeRequestToGemini parses a Claude API request and returns a complete
 // Gemini CLI request body (as JSON bytes) ready to be sent via SendRawMessageStream.
@@ -88,8 +88,7 @@ func ConvertClaudeRequestToGemini(modelName string, inputRawJSON []byte, _ bool)
 						functionArgs := contentResult.Get("input").String()
 						argsResult := gjson.Parse(functionArgs)
 						if argsResult.IsObject() && gjson.Valid(functionArgs) {
-							part := `{"thoughtSignature":"","functionCall":{"name":"","args":{}}}`
-							part, _ = sjson.Set(part, "thoughtSignature", geminiClaudeThoughtSignature)
+							part := `{"functionCall":{"name":"","args":{}}}`
 							part, _ = sjson.Set(part, "functionCall.name", functionName)
 							part, _ = sjson.SetRaw(part, "functionCall.args", functionArgs)
 							contentJSON, _ = sjson.SetRaw(contentJSON, "parts.-1", part)

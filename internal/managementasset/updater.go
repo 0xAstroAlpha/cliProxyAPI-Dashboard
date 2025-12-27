@@ -187,6 +187,11 @@ func EnsureLatestManagementHTML(ctx context.Context, staticDir string, proxyURL 
 		ctx = context.Background()
 	}
 
+	if os.Getenv("MANAGEMENT_AUTO_UPDATE") == "false" {
+		log.Debug("management asset update check skipped: disabled by environment variable")
+		return
+	}
+
 	if disableControlPanel.Load() {
 		log.Debug("management asset sync skipped: control panel disabled by configuration")
 		return

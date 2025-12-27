@@ -422,6 +422,12 @@ func main() {
 	} else {
 		cfg.AuthDir = resolvedAuthDir
 	}
+
+	if envAuthDir := os.Getenv("AUTH_DIR"); envAuthDir != "" {
+		cfg.AuthDir = envAuthDir
+		log.Infof("overriding auth directory from environment variable: %s", cfg.AuthDir)
+	}
+
 	managementasset.SetCurrentConfig(cfg)
 
 	// Initialize database for usage logging
