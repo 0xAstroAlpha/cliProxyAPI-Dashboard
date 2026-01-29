@@ -1,0 +1,78 @@
+# Server host/interface to bind to. Default is empty ("") to bind all interfaces (IPv4 + IPv6).
+# Use "127.0.0.1" or "localhost" to restrict access to local machine only.
+host: ""
+
+# Server port
+port: 8317
+
+# TLS settings for HTTPS. When enabled, the server listens with the provided certificate and key.
+tls:
+  enable: false
+  cert: ""
+  key: ""
+
+# Management API settings
+remote-management:
+  # Whether to allow remote (non-localhost) management access.
+  # When false, only localhost can access management endpoints (a key is still required).
+  allow-remote: true
+
+  # Management key. If a plaintext value is provided here, it will be hashed on startup.
+  # All management requests (even from localhost) require this key.
+  # IMPORTANT: You MUST set this to access the dashboard. Change 'setup-secret-key' to your own secret.
+  secret-key: "setup-secret-key"
+
+  # Disable the bundled management control panel asset download and HTTP route when true.
+  disable-control-panel: false
+
+  # GitHub repository for the management control panel. Accepts a repository URL or releases API URL.
+  # NOTE: This repo's custom dashboard is included in the Docker image. Set MANAGEMENT_AUTO_UPDATE=false
+  # in docker-compose.yml to prevent auto-updates from overwriting it.
+  panel-github-repository: ""
+
+# Authentication directory (supports ~ for home directory)
+auth-dir: "~/.cli-proxy-api"
+
+# API keys for authentication
+api-keys:
+  - "sk-antigravity-client-key"
+
+# Enable debug logging
+debug: false
+
+# When true, disable high-overhead HTTP middleware features to reduce per-request memory usage under high concurrency.
+commercial-mode: false
+
+# When true, write application logs to rotating files instead of stdout
+logging-to-file: true
+
+# Maximum total size (MB) of log files under the logs directory. When exceeded, the oldest log
+# files are deleted until within the limit. Set to 0 to disable.
+logs-max-total-size-mb: 0
+
+# When false, disable in-memory usage statistics aggregation
+usage-statistics-enabled: true
+
+# Proxy URL. Supports socks5/http/https protocols. Example: socks5://user:pass@192.168.1.1:1080/
+proxy-url: ""
+
+# When true, unprefixed model requests only use credentials without a prefix (except when prefix == model name).
+force-model-prefix: false
+
+# Number of times to retry a request. Retries will occur if the HTTP response code is 403, 408, 500, 502, 503, or 504.
+request-retry: 3
+
+# Maximum wait time in seconds for a cooled-down credential before triggering a retry.
+max-retry-interval: 30
+
+# Quota exceeded behavior
+quota-exceeded:
+  switch-project: true # Whether to automatically switch to another project when a quota is exceeded
+  switch-preview-model: true # Whether to automatically switch to a preview model when a quota is exceeded
+
+# Routing strategy for selecting credentials when multiple match.
+routing:
+  strategy: "round-robin" # round-robin (default), fill-first
+
+# When true, enable authentication for the WebSocket API (/v1/ws).
+ws-auth: false
